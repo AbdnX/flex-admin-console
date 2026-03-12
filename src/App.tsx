@@ -1,6 +1,7 @@
 import { Component, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { api } from './lib/api';
 import MerchantsPage from './pages/MerchantsPage';
 import CustomersPage from './pages/CustomersPage';
 import DelinquencyPage from './pages/DelinquencyPage';
@@ -42,12 +43,18 @@ function LoginGate({ onAuth }: { onAuth: () => void }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pw.trim() === ADMIN_PASSWORD) {
-      sessionStorage.setItem(AUTH_KEY, '1');
-      onAuth();
-    } else {
+    try {
+      const res = await api.auth.login(pw.trim());
+      if (res.ok && res.data.token) {
+        sessionStorage.setItem(AUTH_KEY, '1');
+        sessionStorage.setItem('flex_admin_token', res.data.token);
+        onAuth();
+      } else {
+        setError(true);
+      }
+    } catch (err) {
       setError(true);
       setPw('');
     }

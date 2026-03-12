@@ -1,9 +1,13 @@
 const BASE = 'http://localhost:8000/api/v1';
 
 async function req<T>(method: string, path: string, body?: unknown): Promise<T> {
+  const token = sessionStorage.getItem('flex_admin_token');
   const res = await fetch(`${BASE}${path}`, {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    },
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) {
@@ -95,4 +99,11 @@ export const api = {
     sweep: (asOf: string) =>
       req<unknown>('POST', `/delinquency/sweep?as_of_date=${asOf}`),
   },
+  auth: {
+    login: (password: string) => 
+      req<{ ok: boolean; data: { token: string; userId: string } }>('POST', '/auth/login', { 
+        email: 'admin@flex.com', 
+        password 
+      })
+  }
 };
