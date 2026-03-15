@@ -37,7 +37,7 @@ export interface Customer {
   phone: string;
   verification_status: string;
   account_status: string;
-  flex_score: number | null;
+  surge_score: number | null;
   role: string;
   created_at: string;
   json?: any;

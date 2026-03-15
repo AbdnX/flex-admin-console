@@ -169,8 +169,8 @@ export default function CustomersPage() {
                   </td>
                   <td style={{ padding: '1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: (c.flex_score ?? 0) >= 400 ? '#16A34A' : (c.flex_score ?? 0) >= 0 ? '#F97316' : '#E11D48' }}>
-                        {c.flex_score ?? '—'}
+                      <span style={{ fontWeight: 700, fontSize: '1rem', color: (c.surge_score ?? 0) >= 400 ? '#16A34A' : (c.surge_score ?? 0) >= 0 ? '#F97316' : '#E11D48' }}>
+                        {c.surge_score ?? '—'}
                       </span>
                       <span style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600 }}>pts</span>
                     </div>
@@ -230,7 +230,7 @@ export default function CustomersPage() {
                 <div style={F}>
                   <label style={LBL}>Current Surge Score</label>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-                    <span style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{selectedCustomer.flex_score ?? 0}</span>
+                    <span style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{selectedCustomer.surge_score ?? 0}</span>
                     <span style={{ fontSize: '0.875rem', color: '#64748B', fontWeight: 600 }}>points</span>
                   </div>
                 </div>
